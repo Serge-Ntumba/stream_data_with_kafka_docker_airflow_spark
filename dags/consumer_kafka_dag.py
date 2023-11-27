@@ -1,7 +1,7 @@
 from datetime import timedelta
 from airflow import DAG
-from airflow.operators.python import PythonOperator
-#from airflow.operators.python_operator import PythonOperator
+#from airflow.operators.python import PythonOperator
+from airflow.operators.python_operator import PythonOperator
 from datetime import datetime
 from producer_kafka import start_streaming
 
@@ -15,8 +15,6 @@ default_args = {
 }
 
 with DAG('random_people_names', default_args=default_args, schedule_interval='0 1 * * *', catchup=False) as dag:
-
-
     data_stream_task = PythonOperator(
     task_id='kafka_data_stream',
     python_callable=start_streaming,
